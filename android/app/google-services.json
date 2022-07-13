@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "687461433768",
+    "project_id": "uiam-903ed",
+    "storage_bucket": "uiam-903ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687461433768:android:024e70d66277ac5fbf1d9d",
+        "android_client_info": {
+          "package_name": "com.uiam.business"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687461433768-5g5ptngvt7qvfa8u0l7dlfh2e7mv711e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1iiFQZk04_wjNgO6iJlqW-EbGGGm6DPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687461433768-5g5ptngvt7qvfa8u0l7dlfh2e7mv711e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "687461433768-imf7niands2krc91tpvbdbr3egm5k845.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.uiam.business"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687461433768:android:7182f0331bf3a99ebf1d9d",
+        "android_client_info": {
+          "package_name": "com.uiam.personal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687461433768-5g5ptngvt7qvfa8u0l7dlfh2e7mv711e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1iiFQZk04_wjNgO6iJlqW-EbGGGm6DPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687461433768-5g5ptngvt7qvfa8u0l7dlfh2e7mv711e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "687461433768-imf7niands2krc91tpvbdbr3egm5k845.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.uiam.business"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
