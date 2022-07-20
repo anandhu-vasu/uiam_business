@@ -9,6 +9,7 @@ abstract class Routes {
   static const BUSINESS_PROFILE_FORM = _Paths.BUSINESS_PROFILE_FORM;
   static const TIMESLOT = _Paths.TIMESLOT;
   static const APPOINTMENTS = _Paths.APPOINTMENTS;
+  static const QR_CODE = _Paths.QR_CODE;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const BUSINESS_PROFILE_FORM = '/business-profile-form';
   static const TIMESLOT = '/timeslot';
   static const APPOINTMENTS = '/appointments';
+  static const QR_CODE = '/qr-code';
 }

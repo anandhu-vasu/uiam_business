@@ -36,6 +36,12 @@ class HomeView extends GetView<HomeController> {
           return true;
         },
       )),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        Get.toNamed('/qr-code');
+      },
+      child: Icon(Icons.qr_code_scanner_rounded),
+    ),
     );
   }
 }
