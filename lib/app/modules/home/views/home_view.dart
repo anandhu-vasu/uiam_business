@@ -17,70 +17,76 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-          child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: dSpace / 2, vertical: dSpace),
-          child: Row(children: [
-            Avatar(
-              controller.auth.user.image!,
-              blurRadius: 55,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: dSpace),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    controller.auth.user.name!,
-                    style: Get.theme.textTheme.titleLarge,
-                  ),
-                ],
-              ),
-            ),
-          ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed(Routes.QR_CODE);
+          },
+          child: Icon(Icons.qr_code_scanner_rounded),
         ),
-        Container(
-            padding:
-                EdgeInsets.symmetric(horizontal: dSpace / 2, vertical: dSpace),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  onTap: () {
-                    Get.toNamed(Routes.APPOINTMENTS);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(dSpace / 4),
-                    child: Column(
-                      children: [
-                        Icon(Icons.list_alt_rounded),
-                        Text("Appointments"),
-                      ],
-                    ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+              child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: dSpace / 2, vertical: dSpace),
+              child: Row(children: [
+                Avatar(
+                  controller.auth.user.image!,
+                  blurRadius: 55,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: dSpace),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        controller.auth.user.name!,
+                        style: Get.theme.textTheme.titleLarge,
+                      ),
+                    ],
                   ),
                 ),
-                InkWell(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  onTap: () {
-                    Get.toNamed(Routes.TIMESLOT);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(dSpace / 4),
-                    child: Column(
-                      children: [
-                        Icon(Icons.splitscreen_outlined),
-                        Text("Timeslotes")
-                      ],
+              ]),
+            ),
+            Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: dSpace / 2, vertical: dSpace),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      borderRadius: BorderRadius.circular(borderRadius),
+                      onTap: () {
+                        Get.toNamed(Routes.APPOINTMENTS);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(dSpace / 4),
+                        child: Column(
+                          children: [
+                            Icon(Icons.list_alt_rounded),
+                            Text("Appointments"),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ))
-      ])),
-    ));
+                    InkWell(
+                      borderRadius: BorderRadius.circular(borderRadius),
+                      onTap: () {
+                        Get.toNamed(Routes.TIMESLOT);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(dSpace / 4),
+                        child: Column(
+                          children: [
+                            Icon(Icons.splitscreen_outlined),
+                            Text("Timeslotes")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ))
+          ])),
+        ));
   }
 }
