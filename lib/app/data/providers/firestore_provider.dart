@@ -57,13 +57,10 @@ abstract class FirestoreProvider<T extends FirestoreModel> {
 
   /// Stream all documents from the collection
   Stream<Iterable<T>> streamAll(
-      {CollectionReference<Map<String, dynamic>> newCollectionRef(
-          CollectionReference<Map<String, dynamic>> collectionRef,
-          String? docId)?}) {
+      {Query<Map<String, dynamic>> query(
+          Query<Map<String, dynamic>> ref, String? docId)?}) {
     try {
-      return (newCollectionRef != null
-              ? newCollectionRef(collectionRef(), docId)
-              : collectionRef())
+      return (query != null ? query(collectionRef(), docId) : collectionRef())
           .snapshots()
           .map<Iterable<T>>((QuerySnapshot<Map<String, dynamic>>
                   querySnapshot) =>
@@ -78,15 +75,13 @@ abstract class FirestoreProvider<T extends FirestoreModel> {
 
   /// Get all documents from the collection
   Future<Iterable<T>> fetchAll(
-      {CollectionReference<Map<String, dynamic>> newCollectionRef(
-          CollectionReference<Map<String, dynamic>> collectionRef,
-          String? docId)?}) async {
+      {Query<Map<String, dynamic>> query(
+          Query<Map<String, dynamic>> ref, String? docId)?}) async {
     try {
-      QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await (newCollectionRef != null
-                  ? newCollectionRef(collectionRef(), docId)
-                  : collectionRef())
-              .get();
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await (query != null
+              ? query(collectionRef(), docId)
+              : collectionRef())
+          .get();
 
       return querySnapshot.docs.map(
           (DocumentSnapshot<Map<String, dynamic>> documentSnapshot) =>
@@ -98,7 +93,7 @@ abstract class FirestoreProvider<T extends FirestoreModel> {
   }
 
   /// Create a new document with random id and @param model
-  Future<void> create(
+  Future<bool> create(
       {required T model,
       CollectionReference<Map<String, dynamic>> newCollectionRef(
           CollectionReference<Map<String, dynamic>> collectionRef,
@@ -108,10 +103,17 @@ abstract class FirestoreProvider<T extends FirestoreModel> {
       await (newCollectionRef != null
               ? newCollectionRef(collectionRef(), docId)
               : collectionRef())
-          .add({...model.toData(), ...?data});
+          .add({
+        ...model.toData(),
+        ...?data,
+        "created_at": FieldValue.serverTimestamp(),
+        "updated_at": FieldValue.serverTimestamp()
+      });
+
+      return true;
     } catch (e) {
       print("===FIRESTORE_SERVICE|ERROR<$T>::CREATE=== $e");
-      rethrow;
+      return false;
     }
   }
 
@@ -127,7 +129,11 @@ abstract class FirestoreProvider<T extends FirestoreModel> {
               ? newCollectionRef(collectionRef(), docId)
               : collectionRef())
           .doc(docId)
-          .set({...model.toData(), ...?data}, SetOptions(merge: true));
+          .set({
+        ...model.toData(),
+        ...?data,
+        "updated_at": FieldValue.serverTimestamp()
+      }, SetOptions(merge: true));
       return true;
     } catch (e) {
       print("===FIRESTORE_SERVICE|ERROR<$T>::SAVE=== $e");

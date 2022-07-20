@@ -33,6 +33,7 @@ class AuthService extends GetxService {
     if (isAuth) {
       if (user.id == null) {
         user = await BusinessProvider(uid).fetch();
+        print(user);
       }
     } else {
       user = BusinessModel();

@@ -5,7 +5,11 @@ abstract class FirestoreModel {
 
   Map<String, dynamic> toData() {
     Map<String, dynamic> _data = this.toJson();
-    _data.removeWhere((key, value) => value == null || key == "id");
+    _data.removeWhere((key, value) =>
+        value == null ||
+        key == "id" ||
+        key == "updated_at" ||
+        key == "created_at");
     return _data;
   }
 

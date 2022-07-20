@@ -13,7 +13,7 @@ class VariantButton extends StatelessWidget {
   final VariantColorScheme theme;
   final VariantButtonSize size;
   final BorderRadius? borderRadius;
-  final bool rounded;
+  final bool circular;
 
   const VariantButton(
       {Key? key,
@@ -24,7 +24,7 @@ class VariantButton extends StatelessWidget {
       this.size = VariantButtonSize.medium,
       this.height,
       this.borderRadius,
-      this.rounded = false})
+      this.circular = false})
       : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class VariantButton extends StatelessWidget {
     final _width =
         width ?? ((content is IconData) ? (height ?? size.height) : null);
     final _borderRadius = borderRadius ??
-        BorderRadius.circular(rounded ? _height : size.borderRadius);
+        BorderRadius.circular(circular ? _height : size.borderRadius);
 
     return DropShadow(
       child: Container(

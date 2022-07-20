@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../middleware/auth_middleware.dart';
 import '../middleware/redirect_if_auth_middleware.dart';
 import '../middleware/redirect_if_no_profile_middleware.dart';
+import '../modules/appointments/bindings/appointments_binding.dart';
+import '../modules/appointments/views/appointments_view.dart';
 import '../modules/business_profile_form/bindings/business_profile_form_binding.dart';
 import '../modules/business_profile_form/views/business_profile_form_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -11,6 +13,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/timeslot/bindings/timeslot_binding.dart';
+import '../modules/timeslot/views/timeslot_view.dart';
 
 part 'app_routes.dart';
 
@@ -39,6 +43,16 @@ class AppPages {
       name: _Paths.BUSINESS_PROFILE_FORM,
       page: () => const BusinessProfileFormView(),
       binding: BusinessProfileFormBinding(),
+    ),
+    GetPage(
+      name: _Paths.TIMESLOT,
+      page: () => TimeslotView(),
+      binding: TimeslotBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPOINTMENTS,
+      page: () => AppointmentsView(),
+      binding: AppointmentsBinding(),
     ),
   ];
 }

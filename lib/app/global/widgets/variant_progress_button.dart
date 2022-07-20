@@ -19,7 +19,7 @@ class VariantProgressButton extends StatefulWidget {
   final VariantColorScheme theme;
   final VariantButtonSize size;
   final BorderRadius? borderRadius;
-  final bool rounded;
+  final bool circular;
   final Duration duration;
   final VariantProgressButtonController? controller;
 
@@ -32,7 +32,7 @@ class VariantProgressButton extends StatefulWidget {
       this.size = VariantButtonSize.medium,
       this.height,
       this.borderRadius,
-      this.rounded = false,
+      this.circular = false,
       this.duration = const Duration(milliseconds: 1000),
       this.onCompleted,
       this.onFailed,
@@ -61,7 +61,7 @@ class _VariantProgressButtonState extends State<VariantProgressButton>
     _width = widget.width ?? (_height ?? widget.size.height);
     _borderRadius = widget.borderRadius ??
         BorderRadius.circular(
-            widget.rounded ? _height : widget.size.borderRadius);
+            widget.circular ? _height : widget.size.borderRadius);
     if (widget.controller != null) {
       widget.controller?.setState(this);
     }
@@ -122,7 +122,11 @@ class _VariantProgressButtonState extends State<VariantProgressButton>
               controller.forward();
               bool? ret = await widget.onTap();
               if (ret == null) {
-                await Future.delayed(const Duration(milliseconds: 500));
+                controller.reverse();
+                await Future.delayed(const Duration(milliseconds: 400));
+                setState(() {
+                  animationStatus = 0;
+                });
               } else if (ret == true) {
                 setState(() {
                   animationStatus = 2;
@@ -157,7 +161,7 @@ class _VariantProgressButtonState extends State<VariantProgressButton>
           borderRadius: _borderRadiusAnimation.value,
           theme: widget.theme,
           size: widget.size,
-          rounded: widget.rounded,
+          circular: widget.circular,
         ),
         Positioned.fill(
             child: Center(

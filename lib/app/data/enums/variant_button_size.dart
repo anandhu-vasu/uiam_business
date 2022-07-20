@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-enum VariantButtonSize { xsmall, small, medium, large, xlarge }
+enum VariantButtonSize { xsmall, small, medium, large, xlarge, xxlarge }
 
 extension VariantButtonSizeExtension on VariantButtonSize {
   double get height {
@@ -15,6 +15,8 @@ extension VariantButtonSizeExtension on VariantButtonSize {
         return 44.0;
       case VariantButtonSize.xlarge:
         return 52.0;
+      case VariantButtonSize.xxlarge:
+        return 60.0;
     }
   }
 
@@ -30,6 +32,8 @@ extension VariantButtonSizeExtension on VariantButtonSize {
         return 10.0;
       case VariantButtonSize.xlarge:
         return 12.0;
+      case VariantButtonSize.xxlarge:
+        return 14.0;
     }
   }
 }

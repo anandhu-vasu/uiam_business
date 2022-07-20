@@ -36,6 +36,7 @@ class App extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       theme: lightAppTheme,
       darkTheme: darkAppTheme,
+      themeMode: ThemeMode.light,
       title: appName,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
