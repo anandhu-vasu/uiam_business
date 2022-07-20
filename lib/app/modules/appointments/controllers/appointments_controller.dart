@@ -42,19 +42,27 @@ class AppointmentsController extends GetxController {
   Future<List<Map<String, FirestoreModel>>> getAppointments(
       {bool? isVisited, required TimeslotModel timeslot}) async {
     final appointments = await AppointmentProvider(null).fetchAll(
-        query: ((ref, docId) => ref
-            .where("date",
-                isEqualTo: selectedDay.value!
-                    .toIso8601String()
-                    .replaceFirst(RegExp(r'Z'), ''))
-            .where("bid", isEqualTo: auth.uid)
-            .where("timeslot_id", isEqualTo: timeslot.id)
-            .where("isVisited", isEqualTo: isVisited)));
-    print(appointments);
+        query: ((ref, docId) => timeslot.id == null
+            ? ref
+                .where("date",
+                    isEqualTo: selectedDay.value!
+                        .toIso8601String()
+                        .replaceFirst(RegExp(r'Z'), ''))
+                .where("bid", isEqualTo: auth.uid)
+                .where("timeslot_id", isNull: true)
+                .where("is_visited", isEqualTo: isVisited)
+            : ref
+                .where("date",
+                    isEqualTo: selectedDay.value!
+                        .toIso8601String()
+                        .replaceFirst(RegExp(r'Z'), ''))
+                .where("bid", isEqualTo: auth.uid)
+                .where("timeslot_id", isEqualTo: timeslot.id)
+                .where("is_visited", isEqualTo: isVisited)));
 
     final result = appointments.map((appointment) async => {
           "appointment": appointment,
-          "person": await PersonProvider(appointment.bid).fetch(),
+          "person": await PersonProvider(appointment.pid).fetch(),
           "timeslot": timeslot,
         });
     final list = (await Future.wait(result)).toList();

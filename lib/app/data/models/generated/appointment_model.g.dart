@@ -15,12 +15,8 @@ _$_AppointmentModel _$$_AppointmentModelFromJson(Map<String, dynamic> json) =>
       date:
           json['date'] == null ? null : DateTime.parse(json['date'] as String),
       isVisited: json['is_visited'] as bool? ?? false,
-      visited_at: json['visited_at'] == null
-          ? null
-          : DateTime.parse(json['visited_at'] as String),
-      created_at: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
+      visited_at: firestoreTimeStampToDateTime(json['visited_at']),
+      created_at: firestoreTimeStampToDateTime(json['created_at']),
     );
 
 Map<String, dynamic> _$$_AppointmentModelToJson(_$_AppointmentModel instance) =>

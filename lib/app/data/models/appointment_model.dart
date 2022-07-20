@@ -32,7 +32,6 @@ class AppointmentModel extends FirestoreModel with _$AppointmentModel {
 
   factory AppointmentModel.fromDocumentSnapshot(
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
-    print(FirestoreModel.documentSnapshotToJson(documentSnapshot));
     return AppointmentModel.fromJson(
         FirestoreModel.documentSnapshotToJson(documentSnapshot));
   }
