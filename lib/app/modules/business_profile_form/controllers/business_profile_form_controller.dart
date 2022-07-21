@@ -21,6 +21,9 @@ class BusinessProfileFormController extends GetxController
 
   final AuthService auth = Get.find<AuthService>();
 
+  final hashingvalue = "qwertyuiopasdfghjklzxcvbnm";
+  bool success = false;
+
   BusinessModel business = BusinessModel();
   late BusinessProvider personProvider;
 
