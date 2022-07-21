@@ -64,24 +64,36 @@ class SplashView extends GetView<SplashController> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Center(
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                            color: Get.theme.colorScheme.primary,
-                            shape: BoxShape.circle),
-                        child: AnimatedBuilder(
-                          animation: controller.scaleAnimation,
-                          builder: (c, child) => Transform.scale(
-                            scale: controller.scaleAnimation.value,
+                      child: Stack(
+                        children: [
+                          Center(
                             child: Container(
+                              width: 100,
+                              height: 100,
                               decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Get.theme.colorScheme.primary,
+                                  color: Get.theme.colorScheme.primary,
+                                  shape: BoxShape.circle),
+                              child: AnimatedBuilder(
+                                animation: controller.scaleAnimation,
+                                builder: (c, child) => Transform.scale(
+                                  scale: controller.scaleAnimation.value,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Get.theme.colorScheme.primary,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          Center(
+                              child: Image.asset(
+                            "assets/logo.jpg",
+                            width: 80,
+                            height: 80,
+                          )),
+                        ],
                       ),
                     ),
                   ),

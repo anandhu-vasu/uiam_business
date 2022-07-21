@@ -15,7 +15,7 @@ class AuthService extends GetxService {
   final _firebaseAuth = FirebaseAuth.instance;
 
   final Rxn<User> _firebaseUser = Rxn<User>(FirebaseAuth.instance.currentUser);
-  final isLoaded = false.obs;
+  bool loading = true;
 
   // TODO: implement User Model
   BusinessModel user = BusinessModel();
@@ -49,6 +49,7 @@ class AuthService extends GetxService {
     } else {
       user = BusinessModel();
     }
+    loading = false;
     if (Get.currentRoute != Routes.SPLASH) {
       redirect();
     }

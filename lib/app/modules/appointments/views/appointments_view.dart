@@ -179,7 +179,8 @@ class AppointmentsView extends GetResponsiveView<AppointmentsController> {
     ));
   }
 
-  _appointmentsPanel({bool? isVisited, required TimeslotModel timeslot}) =>
+  _appointmentsPanel(
+          {bool isVisited = false, required TimeslotModel timeslot}) =>
       FutureBuilder<List<Map<String, FirestoreModel>>>(
           future: controller.getAppointments(
               isVisited: isVisited, timeslot: timeslot),

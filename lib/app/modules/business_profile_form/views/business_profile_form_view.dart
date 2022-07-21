@@ -162,13 +162,7 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                         ),
                       ),
                       DropdownSearch<String>(
-                        items: [
-                          "Educaiton",
-                          "IT",
-                          "Health",
-                          "Finance",
-                          "Cyber Security"
-                        ],
+                        items: businessTypes,
                         dropdownDecoratorProps: DropDownDecoratorProps(
                             dropdownSearchDecoration:
                                 InputDecoration(labelText: "Business Type")),
@@ -273,7 +267,7 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                         onCompleted: () {
                           if (controller.business.id != null) {
                             Map<String, dynamic>? arguments = Get.arguments;
-                            Get.toNamed(arguments?['next'] ?? Routes.HOME);
+                            Get.offAllNamed(arguments?['next'] ?? Routes.HOME);
                           }
                         },
                         onTap: () async {
@@ -498,7 +492,7 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                         content: "Save",
                         onCompleted: () {
                           Map<String, dynamic>? arguments = Get.arguments;
-                          Get.toNamed(arguments?['next'] ?? Routes.HOME);
+                          Get.offAllNamed(Routes.HOME);
                         },
                         onTap: () async {
                           if (controller.addressFormKey.currentState != null &&

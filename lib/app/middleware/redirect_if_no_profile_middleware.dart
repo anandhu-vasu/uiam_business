@@ -7,8 +7,10 @@ import '../services/auth_service.dart';
 class RedirectIfNoProfile extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    print(Get.find<AuthService>().user);
-    return Get.find<AuthService>().user.id == null
+    final auth = Get.find<AuthService>();
+
+    if (auth.loading) return const RouteSettings(name: Routes.LOADING);
+    return auth.user.id == null
         ? RouteSettings(
             name: Routes.BUSINESS_PROFILE_FORM, arguments: {"next": route})
         : null;

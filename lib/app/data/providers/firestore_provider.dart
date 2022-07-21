@@ -47,7 +47,6 @@ abstract class FirestoreProvider<T extends FirestoreModel> {
               .doc(docId)
               .get();
 
-      print('###DATA<$T>: ${documentSnapshot.data()}');
       return this.modelRef(documentSnapshot);
     } catch (e) {
       print("===FIRESTORE_SERVICE|ERROR<$T>::FETCH=== $e");

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TimeOfDayConverter implements JsonConverter<TimeOfDay, int> {
   const TimeOfDayConverter();
@@ -13,5 +12,5 @@ class TimeOfDayConverter implements JsonConverter<TimeOfDay, int> {
   int toJson(TimeOfDay time) => time.hour * 60 + time.minute;
 }
 
-DateTime? firestoreTimeStampToDateTime(Timestamp timestamp) =>
+DateTime? firestoreTimeStampToDateTime(timestamp) =>
     timestamp == null ? null : DateTime.parse(timestamp.toDate().toString());
