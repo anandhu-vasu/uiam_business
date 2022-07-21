@@ -7,7 +7,11 @@ import '../services/auth_service.dart';
 class RedirectIfAuth extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    return Get.find<AuthService>().isAuth && route != Routes.HOME
+    final auth = Get.find<AuthService>();
+
+    if (auth.loading) return const RouteSettings(name: Routes.LOADING);
+
+    return auth.isAuth && route != Routes.HOME
         ? const RouteSettings(name: Routes.HOME)
         : null;
   }
