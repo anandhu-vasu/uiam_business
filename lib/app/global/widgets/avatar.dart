@@ -17,9 +17,9 @@ class Avatar extends StatelessWidget {
       {Key? key,
       this.size = 80,
       this.borderRadius = 20,
-      this.shadowOpacity = 0.5,
+      this.shadowOpacity = 0.30,
       this.shadowColor,
-      this.blurRadius = 55,
+      this.blurRadius = 25,
       this.spreadRadius = 0})
       : super(key: key);
 

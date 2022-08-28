@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:uiam_business/app/services/auth_service.dart';
-
+import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 import 'app/routes/app_pages.dart';
 import 'core/theme/dark_app_theme.dart';
 import 'core/theme/light_app_theme.dart';
@@ -19,8 +19,12 @@ Future<void> main() async {
   await initServices();
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => const App(),
+      tools: [
+        ...DevicePreview.defaultTools,
+        const DevicePreviewScreenshot(),
+      ],
     ),
   );
 }
@@ -40,6 +44,7 @@ class App extends StatelessWidget {
       title: appName,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

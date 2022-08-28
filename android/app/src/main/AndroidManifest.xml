@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.uiam.business">
    <application
-        android:label="uiam_business"
+        android:label="UIAM Business"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

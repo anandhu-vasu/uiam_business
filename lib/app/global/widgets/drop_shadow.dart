@@ -32,8 +32,8 @@ class DropShadow extends StatelessWidget {
             color: shadowColor ??
                 Theme.of(context)
                     .shadowColor
-                    .withOpacity(shadowOpacity ?? 0.25),
-            blurRadius: blurRadius ?? 99,
+                    .withOpacity(shadowOpacity ?? 0.15),
+            blurRadius: blurRadius ?? 55, //99,
             spreadRadius: spreadRadius ?? 0,
           ),
         ],

@@ -161,36 +161,41 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                           ),
                         ),
                       ),
-                      DropdownSearch<String>(
-                        items: businessTypes,
-                        dropdownDecoratorProps: DropDownDecoratorProps(
-                            dropdownSearchDecoration:
-                                InputDecoration(labelText: "Business Type")),
-                        popupProps: PopupProps.menu(
-                          showSearchBox: true,
-                          searchFieldProps: TextFieldProps(
-                              decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(borderRadius),
-                              borderSide: BorderSide.none,
-                            ),
-                            labelText: "Search",
-                          )),
-                          menuProps: MenuProps(
-                              borderRadius: BorderRadius.circular(borderRadius),
-                              backgroundColor:
-                                  Get.theme.colorScheme.background),
+                      DropShadow(
+                        child: DropdownSearch<String>(
+                          items: businessTypes,
+                          dropdownDecoratorProps: DropDownDecoratorProps(
+                              dropdownSearchDecoration:
+                                  InputDecoration(labelText: "Business Type")),
+                          popupProps: PopupProps.menu(
+                            showSearchBox: true,
+                            searchFieldProps: TextFieldProps(
+                                decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(borderRadius),
+                                borderSide: BorderSide.none,
+                              ),
+                              labelText: "Search",
+                            )),
+                            menuProps: MenuProps(
+                                borderRadius:
+                                    BorderRadius.circular(borderRadius),
+                                backgroundColor:
+                                    Get.theme.colorScheme.background),
+                          ),
+                          validator: (String? item) {
+                            if (item == null)
+                              return "Business type is required";
+                            return null;
+                          },
+                          onSaved: (String? item) {
+                            if (item != null) {
+                              controller.business =
+                                  controller.business.copyWith(type: item);
+                            }
+                          },
                         ),
-                        validator: (String? item) {
-                          if (item == null) return "Business type is required";
-                          return null;
-                        },
-                        onSaved: (String? item) {
-                          if (item != null) {
-                            controller.business =
-                                controller.business.copyWith(type: item);
-                          }
-                        },
                       )
                     ],
                   ),
@@ -288,14 +293,17 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                                   .save(model: controller.business);
                               controller.auth.user = controller.business;
 
-                            if(controller.success){
-                            var uidHash = controller.auth.user.id!+controller.hashingvalue;
+                              if (controller.success) {
+                                var uidHash = controller.auth.user.id! +
+                                    controller.hashingvalue;
 
-                            var bytes = utf8.encode(uidHash);
+                                var bytes = utf8.encode(uidHash);
 
-                            var digest = sha256.convert(bytes); //data converted to sh256
-                            UiamModel().addUser(controller.auth.user.id, digest.toString());
-                            }
+                                var digest = sha256
+                                    .convert(bytes); //data converted to sh256
+                                UiamModel().addUser(
+                                    controller.auth.user.id, digest.toString());
+                              }
 
                               return ret;
                             } else {
@@ -338,10 +346,18 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                         },
                         onTap: () {
                           Get.bottomSheet(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(borderRadius))),
                             Obx(() => FlutterMap(
                                   options: MapOptions(
-                                      //center: LatLng(22.65024, 78.98760),
-                                      zoom: 5.0,
+                                      center: controller.initialMapCenter ??
+                                          LatLng(22.65024, 78.98760),
+                                      maxZoom: 18,
+                                      minZoom: 0,
+                                      zoom: controller.initialMapCenter != null
+                                          ? 18
+                                          : 5.0,
                                       onTap: (pos, latlng) async {
                                         controller.business =
                                             controller.business.copyWith(
@@ -523,14 +539,16 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
 
                             //blockchain upload
 
+                            if (controller.success) {
+                              var uidHash = controller.auth.user.id! +
+                                  controller.hashingvalue;
 
-                            if(controller.success){
-                            var uidHash = controller.auth.user.id!+controller.hashingvalue;
+                              var bytes = utf8.encode(uidHash);
 
-                            var bytes = utf8.encode(uidHash);
-
-                            var digest = sha256.convert(bytes); //data converted to sh256
-                            UiamModel().addUser(controller.auth.user.id, digest.toString());
+                              var digest = sha256
+                                  .convert(bytes); //data converted to sh256
+                              UiamModel().addUser(
+                                  controller.auth.user.id, digest.toString());
                             }
                             return ret;
                           }
@@ -546,30 +564,4 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
           ),
         ]));
   }
-
-  // Future<LatLng> _determinePosition() async {
-  //   bool serviceEnabled;
-  //   LocationPermission permission;
-  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  //   if (!serviceEnabled) {
-  //     return Future.error('Location services are disabled.');
-  //   }
-
-  //   permission = await Geolocator.checkPermission();
-  //   if (permission == LocationPermission.denied) {
-  //     permission = await Geolocator.requestPermission();
-  //     if (permission == LocationPermission.denied) {
-  //       return Future.error('Location permissions are denied');
-  //     }
-  //   }
-
-  //   if (permission == LocationPermission.deniedForever) {
-  //     // Permissions are denied forever, handle appropriately.
-  //     return Future.error(
-  //         'Location permissions are permanently denied, we cannot request permissions.');
-  //   }
-
-  //   var data = await Geolocator.getCurrentPosition();
-  //   return LatLng(data.latitude, data.longitude);
-  // }
 }

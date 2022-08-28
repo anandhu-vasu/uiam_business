@@ -1,4 +1,5 @@
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
@@ -33,14 +34,24 @@ class BusinessProfileFormController extends GetxController
   final marker = Rxn<Marker>(null);
   final locationController = TextEditingController();
   final storageController = Get.find<FirebaseStorageController>();
+  LatLng? initialMapCenter;
 
   @override
-  void onInit() {
+  void onInit() async {
     personProvider = BusinessProvider(auth.uid);
-    //business = auth.user;
+    business = auth.user;
     if (auth.user.phone == null) {
       business = business.copyWith(phone: auth.firebaseUser!.phoneNumber);
     }
+    if (business.location != null) {
+      locationController.text =
+          "${business.location!.latitude}, ${business.location!.longitude}";
+      final loc =
+          LatLng(business.location!.latitude, business.location!.longitude);
+      onLocationSelect(loc);
+      initialMapCenter = loc;
+    }
+    initialMapCenter ??= await _determinePosition();
     imagePath.value = business.image ?? '';
     super.onInit();
   }
@@ -86,7 +97,38 @@ class BusinessProfileFormController extends GetxController
       height: 80.0,
       point: latlng,
       builder: (ctx) => Transform.translate(
-          offset: Offset(0, -20), child: Icon(Icons.location_on, size: 50)),
+          offset: Offset(0, -20),
+          child: Icon(
+            Icons.location_on,
+            size: 40,
+            color: Get.theme.colorScheme.primary,
+          )),
     );
+  }
+
+  Future<LatLng> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      //  Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    var data = await Geolocator.getCurrentPosition();
+    return LatLng(data.latitude, data.longitude);
   }
 }

@@ -29,29 +29,35 @@ class HomeView extends GetView<HomeController> {
             Padding(
               padding: const EdgeInsets.symmetric(
                   horizontal: dSpace / 2, vertical: dSpace),
-              child: GestureDetector(
-                onTap: () {
-                  Get.toNamed(Routes.BUSINESS_PROFILE_FORM);
-                },
-                child: Row(children: [
-                  Avatar(
-                    controller.auth.user.image!,
-                    blurRadius: 55,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: dSpace),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          controller.auth.user.name!,
-                          style: Get.theme.textTheme.titleLarge,
-                        ),
-                      ],
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.BUSINESS_PROFILE_FORM);
+                        },
+                        child: Avatar(
+                          controller.auth.user.image!,
+                          blurRadius: 55,
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: dSpace),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            controller.auth.user.name!,
+                            style: Get.theme.textTheme.titleLarge,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ]),
-              ),
+                    IconButton(
+                        onPressed: () {
+                          controller.auth.signOut();
+                        },
+                        icon: Icon(Icons.logout))
+                  ]),
             ),
             Container(
                 padding: EdgeInsets.symmetric(
