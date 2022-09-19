@@ -164,6 +164,7 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                       DropShadow(
                         child: DropdownSearch<String>(
                           items: businessTypes,
+                          selectedItem: controller.business.type,
                           dropdownDecoratorProps: DropDownDecoratorProps(
                               dropdownSearchDecoration:
                                   InputDecoration(labelText: "Business Type")),
@@ -521,7 +522,8 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                               return null;
                             }
 
-                            if (!controller.isInfoSave) {
+                            if (!controller.isInfoSave &&
+                                controller.infoFormKey.currentState != null) {
                               controller.infoFormKey.currentState!.save();
                               if (controller.imagePath.isEmpty) {
                                 controller.imagePath.value =
@@ -536,8 +538,6 @@ class BusinessProfileFormView extends GetView<BusinessProfileFormController> {
                             final ret = await controller.personProvider
                                 .save(model: controller.business);
                             controller.auth.user = controller.business;
-
-                            //blockchain upload
 
                             if (controller.success) {
                               var uidHash = controller.auth.user.id! +
